@@ -1,0 +1,19 @@
+<?php
+/**
+ * @file
+ */
+
+define('SCHOOL_FRONT_THEME_PATH', drupal_get_path('theme', 'school_theme'));
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function realty_ctools_plugin_directory($owner, $plugin_type) {
+  if ($owner == 'panels') {
+    return "plugins/$plugin_type";
+  }
+
+  if ($owner == 'ctools' && $plugin_type == 'content_types') {
+    return "plugins/content_types";
+  }
+}
