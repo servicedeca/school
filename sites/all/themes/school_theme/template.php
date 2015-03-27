@@ -151,3 +151,22 @@ function school_preprocess_views_view_unformatted__taxonomy__partners(&$vars) {
     $vars['partners'][$key]['logo'] = l($logo, $value->field_field_sites[0]['raw']['value'], array('html' => TRUE));
   }
 }
+
+/**
+ * Process variables for menu_tree__menu-menu-top.tpl.php.
+ */
+function school_theme_preprocess_menu_link__menu_menu_top(&$vars) {
+  $a = 1;
+  $vars['element']['#attributes']['class'] = [];
+  if ($vars['element']['#below']) {
+    $vars['element']['#attributes']['class'] = array('sub');
+  }
+  $vars['output'] = '<li class="sub">'
+    .l($vars['element']['#title'], $vars['element']['#href'], $vars['element']['#localized_options']).
+      '<ul>
+        <li>
+          '.l($vars['element']['#below'][450]['#title'], $vars['element']['#below'][450]['#href'], $vars['element']['#below'][450]['#localized_options']).'
+        </li>
+      </ul>
+    </li>';
+}

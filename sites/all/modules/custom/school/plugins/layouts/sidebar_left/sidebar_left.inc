@@ -12,7 +12,6 @@ $plugin = array(
   'title' => t('Top,left sidebar,main,bottom'),
   'icon' => 'sidebar_left.png',
   'theme' => 'sidebar-left',
-  'css' => 'sidebar_left.css',
   'regions' => array(
     'top' => t('Top'),    
     'content_left' => t('Content: left'),

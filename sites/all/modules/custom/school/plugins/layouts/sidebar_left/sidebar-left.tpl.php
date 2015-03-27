@@ -5,7 +5,7 @@
  * Template (admin) for the ob-glossary layout.
  */
 ?>
-<div id="wrapper">
+<div class="wrapper">
   <?php if (!empty($content['top'])) : ?>
         <?php print $content['top']; ?>
   <?php endif; ?>
@@ -18,9 +18,14 @@
         <?php endif; ?>
       </div>
       <div class="col-xs-3">
-        <?php if (!empty($content['content_right'])) : ?>
-          <?php print $content['content_right']; ?>
+        <?php if (!empty($content['content_main'])) : ?>
+          <?php print $content['content_main']; ?>
         <?php endif; ?>
       </div>
     </div>
   </div>
+
+  <?php if (!empty($content['bottom'])) : ?>
+    <?php print $content['bottom']; ?>
+  <?php endif; ?>
+</div>
