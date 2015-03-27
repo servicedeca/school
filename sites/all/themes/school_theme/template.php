@@ -156,17 +156,19 @@ function school_preprocess_views_view_unformatted__taxonomy__partners(&$vars) {
  * Process variables for menu_tree__menu-menu-top.tpl.php.
  */
 function school_theme_preprocess_menu_link__menu_menu_top(&$vars) {
-  $a = 1;
-  $vars['element']['#attributes']['class'] = [];
-  if ($vars['element']['#below']) {
-    $vars['element']['#attributes']['class'] = array('sub');
-  }
-  $vars['output'] = '<li class="sub">'
-    .l($vars['element']['#title'], $vars['element']['#href'], $vars['element']['#localized_options']).
-      '<ul>
-        <li>
-          '.l($vars['element']['#below'][450]['#title'], $vars['element']['#below'][450]['#href'], $vars['element']['#below'][450]['#localized_options']).'
-        </li>
-      </ul>
-    </li>';
+    $element = $vars['element'];
+    $sub_menu = '';
+    if ($element['#below'] || $element['#original_link']['plid'] == 0) {
+        $sub_menu = drupal_render($element['#below']);
+        $sub_menu = '<ul>
+            ' . $sub_menu . '
+            </ul>';
+        $vars['output'] = '<div class="navigation">
+            <ul id="nav"><li>' . l($element['#title'], $element['#href']) . $sub_menu.'</li></ul></div>';
+    }
+    else {
+        unset($element['#theme']);
+        unset($element['#attributes']);
+        $vars['output'] = '<li>'.l($element['#title'], $element['#href']).'</li>';
+    }
 }

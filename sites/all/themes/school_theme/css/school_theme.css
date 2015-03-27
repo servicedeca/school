@@ -176,6 +176,10 @@ body{
   -webkit-border-radius: 0px 5px 5px 5px;
 }
 
+#nav li ul {
+    list-style-type: none;
+}
+
 #nav li ul li a, #nav li ul li a:hover {
   background: transparent;
   color: #000;

@@ -5,6 +5,10 @@
 
 define('SCHOOL_FRONT_THEME_PATH', drupal_get_path('theme', 'school_theme'));
 
+function school_init() {
+    //print drupal_render(drupal_get_form('user_login'));
+}
+
 /**
  * Implements hook_ctools_plugin_directory().
  */
