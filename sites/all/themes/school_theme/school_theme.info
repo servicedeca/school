@@ -6,7 +6,9 @@ stylesheets[all][] = css/bootstrap.css
 stylesheets[all][] = css/bootstrap.css.map
 stylesheets[all][] = css/bootstrap-theme.css
 stylesheets[all][] = css/bootstrap-theme.css.map
+stylesheets[all][] = css/nivo-slider.css
 stylesheets[all][] = css/school_theme.css
 
 scripts[] = js/bootstrap.js
+scripts[] = js/jquery.nivo.slider.pack.js
 scripts[] = js/school_theme.js

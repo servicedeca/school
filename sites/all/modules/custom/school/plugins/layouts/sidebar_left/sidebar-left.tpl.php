@@ -12,12 +12,12 @@
 
   <div class="container fin last-block">
     <div class="container fin zero-padding">
-      <div class="col-xs-3 zero-padding">
+      <div class="col-xs-2 zero-padding">
         <?php if (!empty($content['content_left'])) : ?>
           <?php print $content['content_left']; ?>
         <?php endif; ?>
       </div>
-      <div class="col-xs-9">
+      <div class="col-xs-10 content-main border-left">
         <?php if (!empty($content['content_main'])) : ?>
           <?php print $content['content_main']; ?>
         <?php endif; ?>

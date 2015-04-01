@@ -1,49 +1,5 @@
 <?php
 
-/**
-* Process variables for page.tpl.php.
-*/
-function school_theme_preprocess_page(&$vars) {
-  global $user;
-
-  // Get site logo.
-  $logo = theme('image', array(
-    'path' => theme_get_setting('logo_path'),
-    'alt' => t(variable_get('site_name')),
-    'title' => t(variable_get('site_name')),
-    'height' => '138px',
-  ));
-
-  $vars['logo'] = l($logo, '', array(
-    'html' => TRUE,
-    'attributes' => array('class' => 'logo',)
-  ));
-
-  $vars['header_image'] = theme('image', array(
-    'path' => SCHOOL_FRONT_THEME_PATH . '/images/header-image.jpg',
-    'title' => t('Close'),
-  ));
-
-  $vars['view'] = views_embed_view('taxonomy', 'partners');
-
-  $vars['top_menu'] = menu_tree('menu-menu-top');
-  /*foreach ($top_menu as $key => $item) {
-    $vars['menu_top'][$key] = array(
-      'item' => array(
-        'title' => $item['link']['link_title']
-        ),
-    );
-    if (!empty($item['below'])) {
-      foreach ($item['below'] as $k => $val) {
-        $vars['menu_top'][$key]['item'][$k] = array(
-          'sub_item' => l($val['link']['link_title'], $val['link']['link_path']),
-        );
-      }
-    }
-  }*/
-  $a = 1;
-}
-
 
 /**
  * Preprocess variables for node.
@@ -158,17 +114,91 @@ function school_preprocess_views_view_unformatted__taxonomy__partners(&$vars) {
 function school_theme_preprocess_menu_link__menu_menu_top(&$vars) {
     $element = $vars['element'];
     $sub_menu = '';
-    if ($element['#below'] || $element['#original_link']['plid'] == 0) {
+    if ($element['#below']) {
         $sub_menu = drupal_render($element['#below']);
         $sub_menu = '<ul>
             ' . $sub_menu . '
             </ul>';
-        $vars['output'] = '<div class="navigation">
-            <ul id="nav"><li>' . l($element['#title'], $element['#href']) . $sub_menu.'</li></ul></div>';
+        $vars['output'] = '<li>' . l($element['#title'], $element['#href']) . $sub_menu . '</li>';
     }
     else {
-        unset($element['#theme']);
-        unset($element['#attributes']);
         $vars['output'] = '<li>'.l($element['#title'], $element['#href']).'</li>';
     }
+}
+
+/**
+ * Process variables for menu_tree__menu-menu-top.tpl.php.
+ */
+function school_theme_preprocess_menu_link__menu_menu_left(&$vars) {
+  $element = $vars['element'];
+  $sub_menu = '';
+  if ($element['#below']) {
+    $sub_menu = drupal_render($element['#below']);
+    $sub_menu = '<ul>
+            ' . $sub_menu . '
+            </ul>';
+    $vars['output'] = '<li>' . l($element['#title'], $element['#href']) . $sub_menu . '</li>';
+  }
+  else {
+    $vars['output'] = '<li>'.l($element['#title'], $element['#href']).'</li>';
+  }
+}
+
+/**
+ * Process variables node--photo-slider-fool.tpl.php.
+ */
+function school_theme_preprocess_node__photo_slider_fool(&$vars) {
+  $a = 1;
+}
+
+/**
+ * Process variables for views-view-unformatted--photo-albums--main-slider.tpl.php.
+ */
+function school_preprocess_views_view_unformatted__photo_albums__main_slider(&$vars) {
+  if (!empty($vars['view']->result[0]->field_field_photo)) {
+    foreach ($vars['view']->result[0]->field_field_photo as $photo) {
+      $vars['photos'][] = theme('image', array(
+        'path' => $photo['raw']['uri'],
+        'title' => $photo['raw']['title'],
+      ));
+    }
+  }
+  $a = 1;
+}
+
+/**
+ * Process variables for comment.tpl.php
+ */
+function school_theme_preprocess_comment(&$vars) {
+  $account = user_load($vars['comment']->uid);
+  $node = $vars['node'];
+  if ($vars['elements']['#comment']->uid == 0) {
+    $vars['answer'] = 0;
+  }
+  else {
+    $vars['answer'] = 1;
+  }
+  $vars['name'] = $vars['elements']['#comment']->name;
+  $vars['comments'] = $vars['comment']->comment_body['und'][0]['safe_value'];
+  $vars['date'] = gmdate("m-d-Y", $vars['comment']->created);
+
+}
+
+/**
+ * Process variables for comment_wrapper.tpl.php
+ */
+function school_theme_preprocess_comment_wrapper(&$vars) {
+  $vars['content']['comment_form']['comment_body']['und'][0]['#format'] = 'plain_text';
+  $vars['content']['comment_form']['comment_body']['und']['#title'] = t('Вопрос');
+  $vars['content']['comment_form']['comment_body']['und'][0]['value']['#title'] = t('Вопрос');
+  unset($vars['content']['comment_form']['subject']);
+  $vars['content']['comment_form']['actions']['submit']['#value'] = t('Отправить');
+  unset($vars['content']['comment_form']['actions']['preview']);
+}
+
+/**
+ * Process variables for comment-form.tpl.php
+ */
+function school_theme_preprocess_comment_form(&$vars) {
+ $a = 1;
 }
